@@ -3,7 +3,7 @@ const { printf, combine, label, timestamp, prettyPrint, colorize,json } = format
 import { red, green, gray, bold, black } from "colorette";
 
 const infoFormate = printf(({ level, message, timestamp, label }) => {
-    return `${black(timestamp)} ${green(`[${label}]`)} ${bold(level)} : ${black(message)}`
+    return `${gray(timestamp)} ${green(`[${label}]`)} ${bold(level)} : ${gray(message)}`
 })
 
 export const infoLogger = createLogger({

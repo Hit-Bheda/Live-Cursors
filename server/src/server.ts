@@ -74,6 +74,6 @@ const broadcastUser = () => {
         connections[key].send(JSON.stringify(users))
     })
 }
-server.listen(config.port, () => {
-    infoLogger.log('info','Server Is Listning On Port 3000')
+export default server.listen(config.port, () => {
+    infoLogger.log('info',`Server Is Listning On Port ${config.port}`)
 })

@@ -5,7 +5,14 @@ import { useEffect, useRef } from "react";
 import throttle from "lodash.throttle";
 import Cursor from "../Cursor";
 
-const renderCursors = users => {
+type userType = {
+    username:string,
+    state:{
+        x:number,
+        y:number
+    }
+}
+const renderCursors = (users:{[key:string]:userType}) => {
     return Object.keys(users).map(key => {
         const user = users[key]
         return (
@@ -36,10 +43,12 @@ function Home() {
     if(!username){
         return <Navigate to="/login" />
     }
+   
     if(lastJsonMessage){
+        const user = lastJsonMessage as { [key:string]:userType }
         return(
             <>
-                {renderCursors(lastJsonMessage)}
+                {renderCursors(user)}
             </>
         )
     }

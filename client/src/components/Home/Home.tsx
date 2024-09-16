@@ -25,10 +25,12 @@ const renderCursors = (users:{[key:string]:userType}) => {
 function Home() {
     const { username } = useStore()
 
-    const WS_URL = "ws://localhost:3000";
+    const WS_URL = "ws://localhost:5000";
     const {sendJsonMessage, lastJsonMessage} = useWebSocket(WS_URL,{
         queryParams: { username }
     });
+    // console.log(lastJsonMessage);
+    
 
     const TH = 50;
 
@@ -45,10 +47,17 @@ function Home() {
     }
    
     if(lastJsonMessage){
-        const user = lastJsonMessage as { [key:string]:userType }
+        const users = lastJsonMessage as { [key:string]:userType }
+        const otherUsers = Object.keys(users).reduce((result, key) => {
+            if (users[key].username !== username) {
+                result[key] = users[key];
+            }
+            return result;
+        }, {} as { [key: string]: userType });
+        
         return(
             <>
-                {renderCursors(user)}
+                {renderCursors(otherUsers)}
             </>
         )
     }
